@@ -1,58 +1,201 @@
-# HotelHub (FindStays) — Fullstack Booking App
+# FindStays 🏨
 
-This workspace contains a production-ready backend (Express + MongoDB) and a React frontend (Vite + Tailwind).
+A full-stack hotel booking web application that allows users to search, browse, and book hotels with ease. Built as a semester project demonstrating a complete three-tier architecture.
 
-## Quick Start
+---
 
-1. Ensure MongoDB is running locally or get an Atlas URI.
-2. Open two terminals.
+## 📌 Project Description
 
-Backend:
+FindStays is a real-world hotel reservation system where users can search for hotels by location, check available rooms, view detailed hotel information, make bookings, and manage their reservations. An admin panel is also included for managing hotels, rooms, and bookings.
+
+---
+
+## ✨ Features
+
+- 🔍 Search hotels by location, check-in/check-out date, and guests
+- 🏨 Browse hotels with filtering and sorting options
+- 📋 View detailed hotel and room information
+- 📅 Book a room with date selection
+- ❤️ Save favourite hotels (stored in localStorage)
+- 👤 User authentication (Register / Login)
+- 🛠️ Admin dashboard to manage hotels, rooms, and bookings
+- 📊 Full CRUD operations on hotels and bookings
+- ✅ Form validation with proper success and error messages
+- 📱 Responsive design for all screen sizes
+- 💀 Skeleton loading for better UX
+
+---
+
+## 🛠️ Technologies Used
+
+### Frontend
+- React JS (Vite)
+- React Router DOM
+- Context API (State Management)
+- Tailwind CSS
+- Axios
+
+### Backend
+- Node.js
+- Express JS
+- REST API (GET, POST, PUT, PATCH, DELETE)
+- JWT Authentication
+- bcryptjs
+
+### Database
+- MongoDB (via Mongoose ODM)
+
+### Tools
+- Postman (API testing)
+- Git & GitHub
+
+---
+
+## 📁 Folder Structure
+
+```
+FindStays/
+├── frontend/          # React + Vite frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── services/
+│   │   └── main.jsx
+│   └── package.json
+│
+├── backend/           # Node.js + Express backend
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── seed.js
+│   └── server.js
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+### Prerequisites
+
+Make sure you have the following installed:
+- Node.js (v18 or above)
+- npm
+- MongoDB (local or MongoDB Atlas)
+- Git
+
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/mrabdulsattar/EAD-Project.git
+cd EAD-Project
+```
+
+---
+
+### 2. Backend Setup
+
 ```bash
 cd backend
 npm install
-# create .env with MONGO_URI and JWT_SECRET (see example below)
-# optional: DEFAULT_ADMIN_EMAIL and DEFAULT_ADMIN_PASSWORD to override teacher credentials
+```
+
+Create a `.env` file in the `backend/` directory:
+
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/findstays
+JWT_SECRET=your_jwt_secret_key
+```
+
+> See `.env.example` for reference.
+
+Start the backend server:
+
+```bash
 npm run dev
 ```
 
-Frontend:
+The backend will run at: `http://localhost:5000`
+
+---
+
+### 3. Seed the Database (Optional)
+
+To populate the database with sample hotel data:
+
 ```bash
-cd client
+node seed.js
+```
+
+---
+
+### 4. Frontend Setup
+
+```bash
+cd ../frontend
 npm install
 npm run dev
 ```
 
-Frontend runs on `http://localhost:5173` (Vite) and backend on `http://localhost:5000`.
+The frontend will run at: `http://localhost:5173`
 
-## Environment (.env)
-Create `backend/.env` with:
-```
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/findstays
-JWT_SECRET=your_jwt_secret_here
-# optional override for teacher/admin check
-DEFAULT_ADMIN_EMAIL=admin@hotelhub.com
-DEFAULT_ADMIN_PASSWORD=Admin@123
-```
+---
 
-## Teacher Admin Credentials
-For evaluation there's a default admin account (can be overridden via `.env`):
-- Email: admin@hotelhub.com
-- Password: Admin@123
+## 🔌 Environment Variables
 
-## Seeding Hotels
-A seeder is included at `backend/seedHotels.js` — run it after ensuring `MONGO_URI` is set:
-```bash
-node backend/seedHotels.js
-```
+| Variable     | Description                        |
+|--------------|------------------------------------|
+| `PORT`       | Port for the Express server        |
+| `MONGO_URI`  | MongoDB connection string          |
+| `JWT_SECRET` | Secret key for JWT token signing   |
 
-## API highlights
-- Auth: `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
-- Hotels: `GET /api/hotels`, `GET /api/hotels/:id`, `GET /api/hotels/search`
-- Bookings: `GET/POST/PATCH/PUT /api/bookings`
-- Admin: `GET /api/admin/dashboard`, `GET /api/admin/users`
+---
 
-## Notes
-- Frontend uses `localStorage` to store JWT token (for simplicity).
-- If you need help running the project locally, tell me which OS/terminal you use and I can paste exact commands.
+## 📡 API Endpoints
+
+### Hotels
+| Method | Endpoint              | Description          |
+|--------|-----------------------|----------------------|
+| GET    | `/api/hotels`         | Get all hotels       |
+| GET    | `/api/hotels/:id`     | Get hotel by ID      |
+| POST   | `/api/hotels`         | Create a new hotel   |
+| PUT    | `/api/hotels/:id`     | Update a hotel       |
+| DELETE | `/api/hotels/:id`     | Delete a hotel       |
+
+### Bookings
+| Method | Endpoint                | Description             |
+|--------|-------------------------|-------------------------|
+| GET    | `/api/bookings`         | Get all bookings        |
+| GET    | `/api/bookings/:id`     | Get booking by ID       |
+| POST   | `/api/bookings`         | Create a new booking    |
+| PATCH  | `/api/bookings/:id`     | Update booking status   |
+| DELETE | `/api/bookings/:id`     | Cancel a booking        |
+
+### Auth
+| Method | Endpoint              | Description     |
+|--------|-----------------------|-----------------|
+| POST   | `/api/auth/register`  | Register user   |
+| POST   | `/api/auth/login`     | Login user      |
+
+---
+
+## 🚀 Running the Project
+
+1. Start MongoDB locally (or use Atlas connection string in `.env`)
+2. Run the backend: `cd backend && npm run dev`
+3. Run the frontend: `cd frontend && npm run dev`
+4. Open your browser at `http://localhost:5173`
+
+---
+
+## 👨‍💻 Developed By
+
+**Abdul Sattar**
+BS Computer Science — 6th Semester
+Sukkur IBA University
